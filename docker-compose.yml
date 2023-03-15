@@ -1,5 +1,4 @@
 version: "3"
-
 services:
   nginx:
     build:
@@ -9,7 +8,7 @@ services:
       - "80:80"
     depends_on:
       - express-be
-    container_name: express-be
+      - rails-be # add this line
     networks:
       - my-network
 
@@ -19,6 +18,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
+    networks:
+      - my-network
+
+  rails-be:
+    build:
+      context: ./backends/rails-be
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
     networks:
       - my-network
 
