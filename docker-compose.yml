@@ -1,20 +1,27 @@
-version: "3.9"
+version: "3"
 
 services:
-  rails:
-    build: ./backends/railic
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "3001:3000"
+      - "80:80"
+    depends_on:
+      - express-be
+    container_name: express-be
     networks:
-      - backend
+      - my-network
 
-  express:
-    build: ./backends/expressive
-    command: npm start
+  express-be:
+    build:
+      context: ./backends/express-be
+      dockerfile: Dockerfile
     ports:
-      - "1111:7777"
+      - "4000:4000"
     networks:
-      - backend
+      - my-network
+
 networks:
-  backend:
+  my-network:
+    driver: bridge
