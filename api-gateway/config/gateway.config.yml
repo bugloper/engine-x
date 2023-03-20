@@ -1,0 +1,37 @@
+http:
+  port: 8080
+apiEndpoints:
+  rails:
+    host: '*'
+    paths: '/api/rails/*'
+  express:
+    host: '*'
+    paths: '/api/express/*'
+serviceEndpoints:
+  rails:
+    url: 'http://rails-be:3000'
+  express:
+    url: 'http://express-be:4000'
+
+policies:
+  - cors
+  #  - expression
+  #  - log
+  - proxy
+pipelines:
+  - name: rails
+    apiEndpoints:
+      - rails
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: rails
+              changeOrigin: true
+  - name: express
+    apiEndpoints:
+      - express
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: express
+              changeOrigin: true

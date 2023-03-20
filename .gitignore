@@ -1,3 +1,4 @@
 backends/expressive/node_modules
-backends/railic/.idea
+backends/rail-be/.idea
+api-gateway/node_modules
 .idea/
