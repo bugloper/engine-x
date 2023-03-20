@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  resources :pages
+  scope '/api' do
+    scope '/rails' do
+      resources :pages, only: [:index]
+    end
+  end
 end

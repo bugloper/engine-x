@@ -7,10 +7,20 @@ services:
     ports:
       - "80:80"
     depends_on:
+      - api-gateway
       - express-be
-      - rails-be # add this line
+      - rails-be
     networks:
       - my-network
+
+  api-gateway:
+   build:
+     context: ./api-gateway
+     dockerfile: Dockerfile
+   ports:
+     - "8080:8080"
+   networks:
+     - my-network
 
   express-be:
     build:
