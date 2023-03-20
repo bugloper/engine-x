@@ -12,6 +12,3 @@ RUN yarn install
 
 EXPOSE 8080
 CMD [ "node", "server.js" ]
-
-#rails-be   172.18.0.2
-#express-be 172.18.0.3
